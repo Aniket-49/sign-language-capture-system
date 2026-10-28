@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignBridge — Two-Way Glove Communicator</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="brand">Sign<span>Bridge</span></div>
+      <div class="subtitle">Two-way communication for a sign-language glove</div>
+    </div>
+    <div class="status-pill"><span class="dot" id="connectionDot"></span><span id="connectionText">ESP32 Offline</span></div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">ACCESSIBLE COMMUNICATION</p>
+        <h1>Speak. Sign. Understand.</h1>
+        <p class="hero-copy">A two-way interface connecting the glove user and the person they are communicating with.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="secondary" id="settingsBtn">Accessibility</button>
+        <button class="primary" id="connectBtn">Connect ESP32</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card glove-card">
+        <div class="card-head">
+          <div>
+            <span class="label">GLOVE USER</span>
+            <h2>Detected Sign</h2>
+          </div>
+          <span class="live-badge" id="gestureBadge">WAITING</span>
+        </div>
+
+        <div class="detected" id="detectedText">Waiting for a gesture…</div>
+        <div class="confidence-row">
+          <span>Recognition confidence</span>
+          <strong id="confidence">—</strong>
+        </div>
+        <div class="meter"><div id="confidenceBar"></div></div>
+
+        <div class="finger-grid">
+          <div><span>Thumb</span><b id="thumb">—</b></div>
+          <div><span>Index</span><b id="index">—</b></div>
+          <div><span>Middle</span><b id="middle">—</b></div>
+          <div><span>Ring</span><b id="ring">—</b></div>
+          <div><span>Pinky</span><b id="pinky">—</b></div>
+        </div>
+
+        <button class="speak full" id="speakDetected">🔊 Speak detected message</button>
+      </article>
+
+      <article class="card person-card">
+        <div class="card-head">
+          <div>
+            <span class="label">OTHER PERSON</span>
+            <h2>Talk to the glove user</h2>
+          </div>
+          <span class="mic-status" id="micStatus">MIC READY</span>
+        </div>
+
+        <div class="transcript" id="transcript">Your spoken message will appear here.</div>
+
+        <div class="voice-controls">
+          <button class="mic" id="micBtn">🎙 <span id="micLabel">Start speaking</span></button>
+          <button class="speak" id="speakTranscript">🔊 Speak text</button>
+        </div>
+        <p class="hint">Speech recognition uses your browser's microphone permission.</p>
+      </article>
+    </section>
+
+    <section class="card conversation-card">
+      <div class="card-head">
+        <div>
+          <span class="label">LIVE CONVERSATION</span>
+          <h2>Messages</h2>
+        </div>
+        <button class="text-button" id="clearBtn">Clear</button>
+      </div>
+      <div class="messages" id="messages">
+        <div class="empty">Conversation messages will appear here.</div>
+      </div>
+    </section>
+
+    <section class="card connection-card">
+      <div class="card-head">
+        <div>
+          <span class="label">ESP32-S3</span>
+          <h2>Glove connection</h2>
+        </div>
+        <span class="small-status" id="ipStatus">Not connected</span>
+      </div>
+      <div class="connection-form">
+        <label>ESP32 IP address
+          <input id="espIp" value="192.168.43.100" placeholder="e.g. 192.168.43.100">
+        </label>
+        <label>Port
+          <input id="espPort" value="80" placeholder="80">
+        </label>
+        <button class="primary" id="socketBtn">Test connection</button>
+      </div>
+      <p class="hint">For the final glove, the ESP32-S3 will join the phone hotspot in Wi-Fi Station (STA) mode. The IP shown by the ESP32 will be entered here.</p>
+    </section>
+  </main>
+
+  <dialog id="settingsDialog">
+    <div class="dialog-head">
+      <h2>Accessibility</h2>
+      <button class="close" id="closeSettings">×</button>
+    </div>
+    <label class="toggle"><input type="checkbox" id="largeText"> <span>Large text</span></label>
+    <label class="toggle"><input type="checkbox" id="highContrast"> <span>High contrast</span></label>
+    <label class="toggle"><input type="checkbox" id="autoSpeak"> <span>Automatically speak detected glove messages</span></label>
+    <label class="toggle"><input type="checkbox" id="vibrate"> <span>Vibration alert when a message arrives</span></label>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

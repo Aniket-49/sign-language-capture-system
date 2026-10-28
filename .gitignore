@@ -1,0 +1,14 @@
+.pio/
+.vscode/
+logs/
+*.log
+*.bak
+__pycache__/
+*.pyc
+.env
+# Training datasets
+training_data.csv
+yes_no_training_data.csv
+
+# Generated machine-learning models
+*.pkl
